@@ -6,6 +6,8 @@ up a database running in a _different_ container. The container
 runs once, and so you should exec it inside a cron job (e.g.
 inside a kubernetes cron job).
 
+Backups are set to have 640 permissions.
+
 Configuration
 -------------
 
@@ -26,5 +28,5 @@ setting `BACKUP_LOCATION=/backups` and `BACKUP_KEY=mydb_backup`,
 you would get backup names of the form:
 
 ```
-/backups/mydb_backup_2024-04-23.sql
+/backups/mydb_backup_2024-04-23.sql.gz
 ```

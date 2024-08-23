@@ -12,7 +12,7 @@
 # BACKUP_KEY
 
 this_date=$(date +%Y-%m-%d)
-backup_name="${BACKUP_LOCATION}/${BACKUP_KEY}_${this_date}.sql"
+backup_name="${BACKUP_LOCATION}/${BACKUP_KEY}_${this_date}.sql.gz"
 
 echo "Attempting to create backup with name ${backup_name}"
 
@@ -20,7 +20,10 @@ PGPASSWORD=${POSTGRES_PASSWORD} \
 pg_dumpall -w -U $POSTGRES_USER \
 	      -h $POSTGRES_HOST \
 	      -p $POSTGRES_PORT \
-	      > $backup_name
+	      | gzip > $backup_name
 
 echo "Successfully created backup: "
 du -b $backup_name
+
+chmod 640 $backup_name
+echo "Successfully changed permissions of backup to 640"
